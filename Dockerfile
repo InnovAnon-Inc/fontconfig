@@ -2,7 +2,8 @@ FROM innovanon/xorg-base:latest as builder-01
 COPY --from=innovanon/freetype    /tmp/freetype2.txz   /tmp/
 RUN cat   /tmp/*.txz  \
   | tar Jxf - -i -C / \
- && rm -v /tmp/*.txz
+ && rm -v /tmp/*.txz  \
+ && ldconfig
 
 # TODO
 RUN apt update && apt full-upgrade && apt install gperf
