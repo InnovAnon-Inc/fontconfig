@@ -4,6 +4,9 @@ RUN cat   /tmp/*.txz  \
   | tar Jxf - -i -C / \
  && rm -v /tmp/*.txz
 
+# TODO
+RUN apt update && apt full-upgrade && apt install gperf
+
 ARG LFS=/mnt/lfs
 WORKDIR $LFS/sources
 USER lfs
