@@ -11,6 +11,9 @@ RUN apt update && apt full-upgrade && apt install gperf
 ARG LFS=/mnt/lfs
 WORKDIR $LFS/sources
 USER lfs
+RUN env
+RUN ls -ltra /usr/local/lib
+RUN exit 2
 RUN sleep 31                                                                                 \
  && git clone --depth=1 --recursive https://gitlab.freedesktop.org/fontconfig/fontconfig.git \
  && cd                                                                        fontconfig     \
