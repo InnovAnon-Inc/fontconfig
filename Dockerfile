@@ -1,12 +1,9 @@
 FROM innovanon/xorg-base:latest as builder-01
 COPY --from=innovanon/freetype    /tmp/freetype2.txz   /tmp/
-RUN cat   /tmp/*.txz  \
-  | tar Jxf - -i -C / \
- && rm -v /tmp/*.txz  \
- && ldconfig
+RUN extract.sh
 
 # TODO
-RUN apt update && apt full-upgrade && apt install gperf
+RUN sleep 31 && apt update && apt full-upgrade && apt install gperf
 
 ARG LFS=/mnt/lfs
 WORKDIR $LFS/sources
@@ -27,5 +24,8 @@ RUN sleep 31                                                                    
  && strip.sh .                                                                               \
  && tar acf        ../fontconfig.txz .                                                       \
  && cd ..                                                                                    \
- && rm -rf       /tmp/fontconfig
+ && rm -rf       /tmp/fontconfig || { env ; ls -ltra /usr/local/lib ; exit 2 }
+
+FROM scratch as final
+COPY --from=builder-01 /tmp/fontconfig.txz /tmp/
 
