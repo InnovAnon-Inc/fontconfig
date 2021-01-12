@@ -24,6 +24,7 @@ RUN sleep 31                                                                    
  && make DESTDIR=/tmp/fontconfig install                                                     \
  && rm -rf                                                                    fontconfig     \
  && cd           /tmp/fontconfig                                                             \
+ && strip.sh .                                                                               \
  && tar acf        ../fontconfig.txz .                                                       \
  && cd ..                                                                                    \
  && rm -rf       /tmp/fontconfig
