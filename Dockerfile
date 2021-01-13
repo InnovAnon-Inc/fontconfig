@@ -1,4 +1,5 @@
 FROM innovanon/xorg-base:latest as builder-01
+USER root
 COPY --from=innovanon/freetype    /tmp/freetype2.txz   /tmp/
 RUN extract.sh
 
@@ -9,8 +10,6 @@ ARG LFS=/mnt/lfs
 WORKDIR $LFS/sources
 USER lfs
 RUN env
-RUN ls -ltra /usr/local/lib
-RUN exit 2
 RUN sleep 31                                                                                 \
  && git clone --depth=1 --recursive https://gitlab.freedesktop.org/fontconfig/fontconfig.git \
  && cd                                                                        fontconfig     \
@@ -22,7 +21,7 @@ RUN sleep 31                                                                    
  && rm -rf                                                                    fontconfig     \
  && cd           /tmp/fontconfig                                                             \
  && strip.sh .                                                                               \
- && tar acf        ../fontconfig.txz .                                                       \
+ && tar  pacf        ../fontconfig.txz .                                                       \
  && cd ..                                                                                    \
  && rm -rf       /tmp/fontconfig || { env ; ls -ltra /usr/local/lib ; exit 2 }
 
