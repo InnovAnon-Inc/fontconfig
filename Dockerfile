@@ -21,9 +21,9 @@ RUN sleep 31                                                                    
  && rm -rf                                                                    fontconfig     \
  && cd           /tmp/fontconfig                                                             \
  && strip.sh .                                                                               \
- && tar  pacf        ../fontconfig.txz .                                                       \
+ && tar  pacf      ../fontconfig.txz .                                                       \
  && cd ..                                                                                    \
- && rm -rf       /tmp/fontconfig || { env ; ls -ltra /usr/local/lib ; exit 2 }
+ && rm -rf       /tmp/fontconfig || { env ; ls -ltra /usr/local/lib ; exit 2 ; }
 
 FROM scratch as final
 COPY --from=builder-01 /tmp/fontconfig.txz /tmp/
