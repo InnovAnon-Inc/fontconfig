@@ -4,7 +4,7 @@ COPY --from=innovanon/freetype    /tmp/freetype2.txz   /tmp/
 RUN extract.sh
 
 # TODO
-RUN sleep 31 && apt update && apt full-upgrade && apt install gperf
+RUN sleep 91 && apt update && apt full-upgrade && apt install gperf
 
 ARG LFS=/mnt/lfs
 WORKDIR $LFS/sources
